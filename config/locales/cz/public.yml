@@ -1,6 +1,7 @@
 cz:
     public:
         user: Uživatel
+        warning: Upozornění
         username: Uživatelské jméno
         password: Heslo
         login_remember: Zapamatovat si toto přihlášení

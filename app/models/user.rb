@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
   def self.authenticate username, password
     return User.find(:first, :conditions => {
             :username => username,
-            :password => Digest::SHA1.hexdigest(password),
+            #:password => Digest::SHA1.hexdigest(password),
+            :password => password,
             :active => true
     })
   end

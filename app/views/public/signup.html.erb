@@ -63,8 +63,46 @@
                 <td><%= error_message_on u, "email" %></td>
             </tr>
             <tr>
-                <td colspan="2" align="center"><%= submit_tag(I18n.t(:'public.reg.register')) %> </td>
+                <td colspan="2" align="center"><%= submit_tag (I18n.t(:'public.reg.register')), :onclick => "return registerproceed()" %> </td>
             </tr>
         </table>
     <% end %>
 <% end %>
+
+<script type="text/javascript">
+
+<!--
+
+//onclick="registerProceed()"
+
+//onclick="signinProceed()"
+
+function registerproceed(){
+    //document.domain = 'wave.test.4students.cz';
+    //alert(document.domain)
+    register ($("#user_username").val(), $("#user_password").val(), $("#user_password_confirmation").val())
+}
+
+/*
+function signinProceed() {
+  signin ($("#username").val(), $("#password").val())
+}
+
+*/
+
+
+function register(username, password, verifypassword) {
+var waveDomain = "@wave.4students.cz"
+    http://wave.test.4students.cz:9898/auth/register
+    $.post("http://wave.test.4students.cz/auth/register", { address: username+waveDomain, password: password, verifypass: verifypassword} );
+    //$.post("http://waveinabox.net/auth/register", { address: username+waveDomain, password: password, verifypass: verifypassword} );
+    //alert('username, password, verifypassword '+username+' '+password+' '+verifypassword)
+}
+
+/*
+function signin(username, password, verifypassword) {
+$.post("http://waveinabox.net/auth/signin?r=/&", { address: telnice, password: password, verifypass: "Sign in"} );
+}
+  */
+//-->
+</script>

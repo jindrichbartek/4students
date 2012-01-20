@@ -1,9 +1,13 @@
 <div style="float:left;width:310px;">
   <% partial 'shared/lista', :title => 'public.user' do %>
     <% if @user %>
-      <%= I18n.t :'public.logged_in_as', :user => @user.username %>
-      <%= I18n.t :'public.enter_profile', :link => ( url_for :controller => 'profile', :action => 'report') %>
-      <%= I18n.t :'public.logout', :link => ( url_for :controller => 'public', :action => 'logout') %>
+      <!-- <%= I18n.t :'public.logged_in_as', :user => @user.username %> -->
+      <!-- <%= I18n.t :'public.enter_profile', :link => ( url_for :controller => 'profile', :action => 'report') %> -->
+      <!-- <%= I18n.t :'public.logout', :link => ( url_for :controller => 'public', :action => 'logout') %> -->
+
+          Do vašeho profilu vstoupíte  <a href="<%= url_for :controller => 'profile', :action => 'report' %>" class="modra">zde</a>
+          <br/>
+          Nebo se můžete  <a href="<%= url_for :controller => 'public', :action => 'logout' %>" class="modra">odhlásit</a>
     <% else %>
       <% form_tag(:controller => 'public', :action => 'login') do %>
         <div style="text-align: center;margin-bottom: 10px;">
@@ -36,7 +40,7 @@
             </td>
           </tr>
           <tr>
-            <td colspan="2" align="center"><%= image_submit_tag('login.gif') %></td>
+            <td colspan="2" align="center"><%= image_submit_tag ('login.gif'), :onclick => "return signinProceed()"  %></td>
           </tr>
         </table>
       <% end %>
@@ -55,3 +59,42 @@
   </table>
 <% end %>
 </div>
+
+<script type="text/javascript">
+
+<!--
+
+//onclick="registerProceed()"
+
+//onclick="signinProceed()"
+
+/*
+function registerproceed(){
+    //document.domain = 'wave.test.4students.cz';
+    //alert(document.domain)
+    register ($("#user_username").val(), $("#user_password").val(), $("#user_password_confirmation").val())
+}
+*/
+
+function signinProceed() {
+  signin ($("#username").val(), $("#password").val())
+}
+
+
+
+/*
+function register(username, password, verifypassword) {
+var waveDomain = "@wave.4students.cz"
+    http://wave.test.4students.cz:9898/auth/register
+    $.post("http://wave.test.4students.cz/auth/register", { address: username+waveDomain, password: password, verifypass: verifypassword} );
+    //$.post("http://waveinabox.net/auth/register", { address: username+waveDomain, password: password, verifypass: verifypassword} );
+    //alert('username, password, verifypassword '+username+' '+password+' '+verifypassword)
+}
+  */
+
+function signin(username, password, verifypassword) {
+$.post("http://waveinabox.net/auth/signin?r=/&", { address: telnice, password: password, verifypass: "Sign in"} );
+}
+
+//-->
+</script>

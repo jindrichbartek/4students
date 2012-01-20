@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 # 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '>=2.3.0' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '=2.3.11' unless defined? RAILS_GEM_VERSION
 
 require 'fileutils'
 require 'iconv'
@@ -29,8 +29,9 @@ Rails::Initializer.run do |config|
   #config.gem 'ferret'
 
   config.gem 'oauth'
-  config.gem 'libxml-ruby', :lib => 'xml'  
-  config.gem 'will_paginate'
+  #config.gem 'libxml-ruby', :lib => 'xml'
+  #config.gem 'libxml-ruby', :version => '2.0.5', :lib => 'xml'
+  config.gem 'will_paginate', :version => '2.3.15'
   config.gem 'json'
   config.gem 'htmlentities'
   config.gem 'rsolr'

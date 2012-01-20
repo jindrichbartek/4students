@@ -5,14 +5,32 @@ class PublicController < ApplicationController
   end
 
   def signup
+    session[:user] = nil
   end
 
   def register
     user = User.create(params[:user])
     if user.save
+      # nekodovat heslo?
       user.password = Digest::SHA1.hexdigest(user.password)
       user.save
       Mailer.deliver_registration(user)
+
+      #session[:usercode] = user.code
+      User.confirm(user.code)
+
+      session[:user] = user.id.to_s
+      #session[:user] = user.id.to_s
+      #History.add user, nil, 'login.first', {}
+
+      ##params[:usercode] = user.code
+      ## really new part
+      ## uz se provadi v beforeCreate validaci ... code = user.makecode
+      ##user =
+      ##    User.confirm(user.code)
+      ##session[:user] = user.id.to_s
+
+
       redirect_to :controller => 'public', :action => 'registered'
     else
       flash[:reg_user] = user
@@ -25,7 +43,9 @@ class PublicController < ApplicationController
 
   def confirm
     # Confirm user
+
     user = User.confirm(params[:id])
+    #user = User.confirm(session[:usercode])
     # Check whether user was found   
     return redirect_to(:controller => 'public', :action => 'index') if not user
     # Log user in
@@ -35,6 +55,14 @@ class PublicController < ApplicationController
   end
 
   def login
+
+    # new part naive
+    #@user.makecode
+    #user = User.confirm(@user.code)
+    #session[:user] = user.id.to_s
+    #History.add user, nil, 'login.first', {}
+
+
     @user = User.authenticate(params[:username], params[:password])
     if @user
       session[:user] = @user.id.to_s
